@@ -1,16 +1,19 @@
 import React from "react";
-import { Button, StyleSheet, Text } from "react-native";
+import { FlatList, StyleSheet, Text } from "react-native";
 
 import { connect } from "react-redux";
-import { deckAdded } from "../store/decks";
 
 import AppScreen from "./../components/AppScreen";
 import AppButton from "./../components/AppButton";
 
 import defaultStyles from "../utils/defaultStyles";
+import { sampleDecksLoaded } from "../store/decks";
+import DeckListItem from "../components/DeckListItem";
 
 const DeckListScreen = (props) => {
   const { dispatch, decks } = props;
+
+  // todo read from cache
 
   if (decks.length === 0)
     return (
@@ -18,14 +21,19 @@ const DeckListScreen = (props) => {
         <Text style={styles.title}>No Decks 😢</Text>
         <AppButton
           title="Load Sample Decks"
-          onPress={() => console.log("load sample decks")}
+          onPress={() => dispatch(sampleDecksLoaded())}
         />
       </AppScreen>
     );
   return (
     <AppScreen>
       <Text style={styles.title}>Deck List</Text>
-      <Text>{decks.length} decks</Text>
+      <FlatList
+        data={decks}
+        renderItem={({ item }) => (
+          <DeckListItem deck={item} onPress={() => console.log(item)} />
+        )}
+      />
     </AppScreen>
   );
 };
