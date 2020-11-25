@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput } from "react-native";
+import { FlatList, StyleSheet, Text, TextInput } from "react-native";
 import AppButton from "../components/AppButton";
 import AppScreen from "../components/AppScreen";
 import { connect } from "react-redux";
@@ -9,10 +9,10 @@ import AppInput from "../components/AppInput";
 
 const AddNewDeckScreen = (props) => {
   const [newDeckName, setNewDeckName] = useState("");
-  const { dispatch } = props;
+  const { dispatch, decks } = props;
 
   const handleSubmit = () => {
-    dispatch(deckAdded({ title: newDeckName }));
+    dispatch(deckAdded({ title: newDeckName })); // TODO check that deck doesn't already exist. if it does, redirect to it
   };
 
   return (
@@ -24,13 +24,19 @@ const AddNewDeckScreen = (props) => {
         onChangeText={setNewDeckName}
       />
       <AppButton title="Add Deck" onPress={handleSubmit} />
-      {/* todo check that deck name doesn't already exist. use formik for
-      validation? */}
+      <FlatList
+        data={decks}
+        renderItem={({ item }) => <Text>{item.title}</Text>}
+      />
     </AppScreen>
   );
 };
 
-export default connect()(AddNewDeckScreen);
+const mapStateToProps = (decks) => ({
+  decks,
+});
+
+export default connect(mapStateToProps)(AddNewDeckScreen);
 
 const styles = StyleSheet.create({
   title: defaultStyles.screenTitle,

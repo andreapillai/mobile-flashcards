@@ -34,7 +34,7 @@ const DeckDetailsScreen = (props) => {
             navigation.navigate("Quiz", {
               screen: "Quiz Start",
               params: {
-                deck,
+                deck, // TODO pass deck in random order?
               },
             })
           }
@@ -50,7 +50,7 @@ const DeckDetailsScreen = (props) => {
       />
       <AppButton
         title="Add Question"
-        onPress={() => navigation.navigate("Add Question")}
+        onPress={() => navigation.navigate("Add Question", { id: deck.id })}
       />
       <AppButton
         title="Delete Deck"

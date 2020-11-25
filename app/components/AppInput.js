@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { colors } from "./../utils/defaultStyles";
 
-// todo add icon to clear text
+// TODO add icon to clear text
 
 const AppInput = ({ ...otherProps }) => {
   return (

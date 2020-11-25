@@ -8,6 +8,8 @@ import { colors } from "./../utils/defaultStyles";
 const QuizStartScreen = (props) => {
   const { navigation } = props;
   const { deck } = props.route.params;
+
+  if (!deck) return null;
   return (
     <AppScreen>
       <Text style={defaultStyles.screenTitle}>Quiz Start - {deck.title}</Text>

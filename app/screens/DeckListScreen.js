@@ -13,7 +13,7 @@ import DeckListItem from "../components/DeckListItem";
 const DeckListScreen = (props) => {
   const { navigation, dispatch, decks } = props;
 
-  // todo read from cache
+  // TODO read from cache
 
   if (decks.length === 0)
     return (
@@ -22,6 +22,10 @@ const DeckListScreen = (props) => {
         <AppButton
           title="Load Sample Decks"
           onPress={() => dispatch(sampleDecksLoaded())}
+        />
+        <AppButton
+          title="Add a New Deck"
+          onPress={() => navigation.navigate("Add New Deck")}
         />
       </AppScreen>
     );

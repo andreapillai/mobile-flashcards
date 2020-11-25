@@ -9,7 +9,7 @@ const decksSlice = createSlice({
   reducers: {
     sampleDecksLoaded: (decks) => {
       decks.push(...sampleDecks);
-      // todo write to cache
+      // TODO write to cache
     },
     deckAdded: (decks, action) => {
       decks.push({
@@ -17,16 +17,27 @@ const decksSlice = createSlice({
         questions: [],
         title: action.payload.title,
       });
-      // todo write to cache
+      // TODO write to cache
     },
     decksCleared: (decks) => {
       decks.splice(0, decks.length);
-      // todo write to cache
+      // TODO write to cache
     },
     deckDeleted: (decks, action) => {
       const filtered = decks.filter((deck) => deck.id !== action.payload.id);
       return filtered;
-      // todo write to cache
+      // TODO write to cache
+    },
+    questionAdded: (decks, action) => {
+      const { id, question } = action.payload; // destructure payload
+      // console.group("ADD QUESTION");
+      // console.log(id);
+      // console.log(question);
+      // console.groupEnd();
+      const deckToUpdate = decks.find((d) => d.id === id); // find deck to update
+      deckToUpdate.questions.push(question); // push question to deck
+      decks.map((d) => (d.id !== id ? d : deckToUpdate));
+      // TODO write to cache
     },
   },
 });
@@ -36,6 +47,7 @@ export const {
   decksCleared,
   sampleDecksLoaded,
   deckDeleted,
+  questionAdded,
 } = decksSlice.actions;
 export default decksSlice.reducer;
 
@@ -43,4 +55,9 @@ export const getDeckByName = (title) =>
   createSelector(
     (state) => state,
     (state) => state.filter((d) => d.title === title)
+  );
+export const getDeckById = (id) =>
+  createSelector(
+    (state) => state,
+    (state) => state.filter((d) => d.id === id)
   );
