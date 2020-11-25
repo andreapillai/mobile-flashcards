@@ -10,7 +10,7 @@ import { colors } from "./../utils/defaultStyles";
 const DeckDetailsScreen = (props) => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const { navigation, dispatch, deck } = props;
-  const noQuestions = deck && deck.questions.length === 0;
+  const hasQuestions = deck && deck.questions.length !== 0;
 
   const handleDeleteDeck = () => {
     dispatch(deckDeleted({ id: deck.id }));
@@ -22,14 +22,24 @@ const DeckDetailsScreen = (props) => {
   return (
     <AppScreen>
       <Text style={styles.title}>{deck.title}</Text>
-      {noQuestions && (
+      {!hasQuestions && (
         <View>
           <Text>There are no questions in this deck.</Text>
-          <AppButton
-            title="Add Question"
-            onPress={() => console.log("Add Question")}
-          />
         </View>
+      )}
+      {hasQuestions && (
+        <AppButton
+          title="Start Quiz"
+          onPress={() =>
+            navigation.navigate("Quiz", {
+              screen: "Quiz Start",
+              params: {
+                deck,
+              },
+            })
+          }
+          color={colors.green}
+        />
       )}
       <FlatList
         data={Object.keys(deck.questions)}
@@ -37,6 +47,10 @@ const DeckDetailsScreen = (props) => {
         renderItem={({ index }) => (
           <Text>{deck.questions[index].questionText}</Text>
         )}
+      />
+      <AppButton
+        title="Add Question"
+        onPress={() => navigation.navigate("Add Question")}
       />
       <AppButton
         title="Delete Deck"
