@@ -1,5 +1,5 @@
-import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 import AppScreen from "../components/AppScreen";
 import defaultStyles from "../utils/defaultStyles";
 import AppButton from "./../components/AppButton";
@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { colors } from "./../utils/defaultStyles";
 
 const DeckDetailsScreen = (props) => {
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const { navigation, dispatch, deck } = props;
   const noQuestions = deck && deck.questions.length === 0;
 
@@ -39,7 +40,7 @@ const DeckDetailsScreen = (props) => {
       />
       <AppButton
         title="Delete Deck"
-        onPress={handleDeleteDeck}
+        onPress={() => setDeleteModalVisible(true)}
         color={colors.danger}
       />
       <AppButton
@@ -49,6 +50,32 @@ const DeckDetailsScreen = (props) => {
           console.log(props);
         }}
       />
+      <Modal visible={deleteModalVisible}>
+        <View style={{ justifyContent: "center", flex: 1 }}>
+          <Text style={styles.title}>Delete Deck</Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontWeight: "bold",
+              fontSize: 20,
+              color: colors.danger,
+            }}
+          >
+            ⚠ This action cannot be undone ⚠
+          </Text>
+          <View style={defaultStyles.buttonRow}>
+            <AppButton
+              title="cancel"
+              onPress={() => setDeleteModalVisible(false)}
+            />
+            <AppButton
+              title="Delete"
+              onPress={handleDeleteDeck}
+              color={colors.danger}
+            />
+          </View>
+        </View>
+      </Modal>
     </AppScreen>
   );
 };
