@@ -9,8 +9,7 @@ import { colors } from "./../utils/defaultStyles";
 
 const DeckDetailsScreen = (props) => {
   const { navigation, dispatch, deck } = props;
-  const { title, questions } = deck;
-  const noQuestions = questions.length === 0;
+  const noQuestions = deck && deck.questions.length === 0;
 
   const handleDeleteDeck = () => {
     dispatch(deckDeleted({ id: deck.id }));
@@ -21,7 +20,7 @@ const DeckDetailsScreen = (props) => {
 
   return (
     <AppScreen>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{deck.title}</Text>
       {noQuestions && (
         <View>
           <Text>There are no questions in this deck.</Text>
@@ -32,9 +31,11 @@ const DeckDetailsScreen = (props) => {
         </View>
       )}
       <FlatList
-        data={Object.keys(questions)}
+        data={Object.keys(deck.questions)}
         keyExtractor={(item) => item}
-        renderItem={({ index }) => <Text>{questions[index].questionText}</Text>}
+        renderItem={({ index }) => (
+          <Text>{deck.questions[index].questionText}</Text>
+        )}
       />
       <AppButton
         title="Delete Deck"
