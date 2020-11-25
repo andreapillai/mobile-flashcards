@@ -41,7 +41,7 @@ const DeckDetailsScreen = (props) => {
           color={colors.green}
         />
       )}
-      <FlatList
+      <FlatList // TODO implement deleting question (swipe? press?)
         data={Object.keys(deck.questions)}
         keyExtractor={(item) => item}
         renderItem={({ index }) => (

@@ -2,14 +2,18 @@ import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 import sampleDecks from "../utils/sampleDecks";
+import cache from "../utils/cache";
 
 const decksSlice = createSlice({
   name: "Decks",
   initialState: [],
   reducers: {
+    cachedDecksLoaded: (decks, action) => {
+      decks.push(...action.payload);
+    },
     sampleDecksLoaded: (decks) => {
       decks.push(...sampleDecks);
-      // TODO write to cache
+      storeCache(decks);
     },
     deckAdded: (decks, action) => {
       decks.push({
@@ -17,16 +21,16 @@ const decksSlice = createSlice({
         questions: [],
         title: action.payload.title,
       });
-      // TODO write to cache
+      storeCache(decks);
     },
     decksCleared: (decks) => {
       decks.splice(0, decks.length);
-      // TODO write to cache
+      storeCache(decks);
     },
     deckDeleted: (decks, action) => {
       const filtered = decks.filter((deck) => deck.id !== action.payload.id);
+      storeCache(filtered);
       return filtered;
-      // TODO write to cache
     },
     questionAdded: (decks, action) => {
       const { id, question } = action.payload; // destructure payload
@@ -37,7 +41,7 @@ const decksSlice = createSlice({
       const deckToUpdate = decks.find((d) => d.id === id); // find deck to update
       deckToUpdate.questions.push(question); // push question to deck
       decks.map((d) => (d.id !== id ? d : deckToUpdate));
-      // TODO write to cache
+      storeCache(decks);
     },
   },
 });
@@ -48,8 +52,18 @@ export const {
   sampleDecksLoaded,
   deckDeleted,
   questionAdded,
+  cachedDecksLoaded,
 } = decksSlice.actions;
 export default decksSlice.reducer;
+
+const storeCache = (decks) => {
+  cache.store(decks);
+};
+
+export const checkCachedDecks = async () => {
+  const cachedDecks = await cache.get();
+  return cachedDecks;
+};
 
 export const getDeckByName = (title) =>
   createSelector(

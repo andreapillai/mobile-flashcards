@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, StyleSheet, Text } from "react-native";
 
 import { connect } from "react-redux";
@@ -7,13 +7,25 @@ import AppScreen from "./../components/AppScreen";
 import AppButton from "./../components/AppButton";
 
 import defaultStyles from "../utils/defaultStyles";
-import { sampleDecksLoaded } from "../store/decks";
+import {
+  sampleDecksLoaded,
+  cachedDecksLoaded,
+  checkCachedDecks,
+} from "../store/decks";
 import DeckListItem from "../components/DeckListItem";
 
 const DeckListScreen = (props) => {
   const { navigation, dispatch, decks } = props;
 
-  // TODO read from cache
+  useEffect(() => {
+    if (decks.length === 0) checkCache();
+  }, []);
+
+  const checkCache = async () => {
+    const cachedDecks = await checkCachedDecks();
+    if (!cachedDecks) return;
+    dispatch(cachedDecksLoaded(cachedDecks));
+  };
 
   if (decks.length === 0)
     return (
@@ -44,6 +56,7 @@ const DeckListScreen = (props) => {
     </AppScreen>
   );
 };
+
 const mapStateToProps = (decks) => ({
   decks,
 });
