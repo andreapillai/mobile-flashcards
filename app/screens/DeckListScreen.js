@@ -7,17 +7,25 @@ import { deckAdded } from "../store/decks";
 import AppScreen from "./../components/AppScreen";
 import AppButton from "./../components/AppButton";
 
+import defaultStyles from "../utils/defaultStyles";
+
 const DeckListScreen = (props) => {
   const { dispatch, decks } = props;
+
+  if (decks.length === 0)
+    return (
+      <AppScreen>
+        <Text style={styles.title}>No Decks 😢</Text>
+        <AppButton
+          title="Load Sample Decks"
+          onPress={() => console.log("load sample decks")}
+        />
+      </AppScreen>
+    );
   return (
     <AppScreen>
-      <Text>Deck List</Text>
+      <Text style={styles.title}>Deck List</Text>
       <Text>{decks.length} decks</Text>
-      <AppButton
-        title="dispatch test deck"
-        onPress={() => dispatch(deckAdded({ title: "test" }))}
-      />
-      <AppButton title="log decks" onPress={() => console.log(decks)} />
     </AppScreen>
   );
 };
@@ -27,4 +35,6 @@ const mapStateToProps = (decks) => ({
 
 export default connect(mapStateToProps)(DeckListScreen);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: defaultStyles.screenTitle,
+});

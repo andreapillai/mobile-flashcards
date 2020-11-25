@@ -4,6 +4,7 @@ import AppButton from "../components/AppButton";
 import AppScreen from "../components/AppScreen";
 import { connect } from "react-redux";
 import { deckAdded } from "../store/decks";
+import defaultStyles from "../utils/defaultStyles";
 
 const AddNewDeckScreen = (props) => {
   const [newDeckName, setNewDeckName] = useState("");
@@ -15,17 +16,19 @@ const AddNewDeckScreen = (props) => {
 
   return (
     <AppScreen>
-      <Text>Add New Deck</Text>
+      <Text style={styles.title}>Add New Deck</Text>
       <TextInput
         placeholder="New Deck Name"
         value={newDeckName}
         onChangeText={setNewDeckName}
       />
-      <AppButton title="Add Deck" onPress={handleSubmit} color="blue" />
+      <AppButton title="Add Deck" onPress={handleSubmit} />
     </AppScreen>
   );
 };
 
 export default connect()(AddNewDeckScreen);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: defaultStyles.screenTitle,
+});

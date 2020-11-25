@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
+import { colors } from "../utils/defaultStyles";
+
 const AppButton = ({
   title,
   onPress,
-  color = "darkcyan",
+  color = colors.primary,
   disabled = false,
 }) => {
   const btnColor = disabled ? "lightsteelblue" : color;

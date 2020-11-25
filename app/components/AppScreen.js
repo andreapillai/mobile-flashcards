@@ -12,5 +12,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
+    paddingHorizontal: 5,
   },
 });
