@@ -11,7 +11,7 @@ import { sampleDecksLoaded } from "../store/decks";
 import DeckListItem from "../components/DeckListItem";
 
 const DeckListScreen = (props) => {
-  const { dispatch, decks } = props;
+  const { navigation, dispatch, decks } = props;
 
   // todo read from cache
 
@@ -31,7 +31,12 @@ const DeckListScreen = (props) => {
       <FlatList
         data={decks}
         renderItem={({ item }) => (
-          <DeckListItem deck={item} onPress={() => console.log(item)} />
+          <DeckListItem
+            deck={item}
+            onPress={() =>
+              navigation.navigate("Deck Details", { title: item.title })
+            }
+          />
         )}
       />
     </AppScreen>

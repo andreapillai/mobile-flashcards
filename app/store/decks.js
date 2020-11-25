@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 import sampleDecks from "../utils/sampleDecks";
@@ -23,6 +23,11 @@ const decksSlice = createSlice({
       decks.splice(0, decks.length);
       // todo write to cache
     },
+    deckDeleted: (decks, action) => {
+      const filtered = decks.filter((deck) => deck.id !== action.payload.id);
+      return filtered;
+      // todo write to cache
+    },
   },
 });
 
@@ -30,5 +35,12 @@ export const {
   deckAdded,
   decksCleared,
   sampleDecksLoaded,
+  deckDeleted,
 } = decksSlice.actions;
 export default decksSlice.reducer;
+
+export const getDeckByName = (title) =>
+  createSelector(
+    (state) => state,
+    (state) => state.filter((d) => d.title === title)
+  );
