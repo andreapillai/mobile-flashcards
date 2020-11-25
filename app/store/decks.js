@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-let id = 0;
+import { v4 as uuidv4 } from "uuid";
 
 const decksSlice = createSlice({
   name: "Decks",
   initialState: [],
   reducers: {
     deckAdded: (decks, action) => {
-      console.group("DECK ADDED");
-      console.log(decks);
-      console.log(action);
-      console.groupEnd();
+      decks.push({
+        id: uuidv4(),
+        questions: [],
+        title: action.payload.title,
+      });
     },
   },
 });

@@ -1,15 +1,31 @@
-import React from "react";
-import { StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput } from "react-native";
+import AppButton from "../components/AppButton";
 import AppScreen from "../components/AppScreen";
+import { connect } from "react-redux";
+import { deckAdded } from "../store/decks";
 
-const AddNewDeckScreen = () => {
+const AddNewDeckScreen = (props) => {
+  const [newDeckName, setNewDeckName] = useState("");
+  const { dispatch } = props;
+
+  const handleSubmit = () => {
+    dispatch(deckAdded({ title: newDeckName }));
+  };
+
   return (
     <AppScreen>
       <Text>Add New Deck</Text>
+      <TextInput
+        placeholder="New Deck Name"
+        value={newDeckName}
+        onChangeText={setNewDeckName}
+      />
+      <AppButton title="Add Deck" onPress={handleSubmit} color="blue" />
     </AppScreen>
   );
 };
 
-export default AddNewDeckScreen;
+export default connect()(AddNewDeckScreen);
 
 const styles = StyleSheet.create({});
