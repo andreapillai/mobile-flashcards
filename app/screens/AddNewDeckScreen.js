@@ -5,6 +5,7 @@ import AppScreen from "../components/AppScreen";
 import { connect } from "react-redux";
 import { deckAdded } from "../store/decks";
 import defaultStyles from "../utils/defaultStyles";
+import AppInput from "../components/AppInput";
 
 const AddNewDeckScreen = (props) => {
   const [newDeckName, setNewDeckName] = useState("");
@@ -17,12 +18,14 @@ const AddNewDeckScreen = (props) => {
   return (
     <AppScreen>
       <Text style={styles.title}>Add New Deck</Text>
-      <TextInput
+      <AppInput
         placeholder="New Deck Name"
         value={newDeckName}
         onChangeText={setNewDeckName}
       />
       <AppButton title="Add Deck" onPress={handleSubmit} />
+      {/* todo check that deck name doesn't already exist. use formik for
+      validation? */}
     </AppScreen>
   );
 };

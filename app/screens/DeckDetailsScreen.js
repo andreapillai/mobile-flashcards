@@ -43,13 +43,6 @@ const DeckDetailsScreen = (props) => {
         onPress={() => setDeleteModalVisible(true)}
         color={colors.danger}
       />
-      <AppButton
-        title="log props"
-        onPress={() => {
-          console.clear();
-          console.log(props);
-        }}
-      />
       <Modal visible={deleteModalVisible}>
         <View style={{ justifyContent: "center", flex: 1 }}>
           <Text style={styles.title}>Delete Deck</Text>
@@ -81,9 +74,9 @@ const DeckDetailsScreen = (props) => {
 };
 
 const mapStateToProps = (decks, ownProps) => {
-  const { deckId, title } = ownProps.route.params;
-  if (deckId) {
-    return { deck: decks.filter((d) => d.id === deckId)[0] };
+  const { id, title } = ownProps.route.params;
+  if (id) {
+    return { deck: decks.filter((d) => d.id === id)[0] };
   }
   if (title) {
     return { deck: decks.filter((d) => d.title === title)[0] };

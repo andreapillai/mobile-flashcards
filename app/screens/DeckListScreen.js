@@ -33,9 +33,7 @@ const DeckListScreen = (props) => {
         renderItem={({ item }) => (
           <DeckListItem
             deck={item}
-            onPress={() =>
-              navigation.navigate("Deck Details", { title: item.title })
-            }
+            onPress={() => navigation.navigate("Deck Details", { id: item.id })}
           />
         )}
       />

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   text: {
-    color: "white",
+    color: colors.light,
     fontSize: 14,
     textTransform: "uppercase",
     fontWeight: "bold",

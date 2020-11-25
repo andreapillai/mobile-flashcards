@@ -1,6 +1,7 @@
 export const colors = {
   primary: "darkcyan",
   danger: "firebrick",
+  light: "ghostwhite",
 };
 
 export default {
