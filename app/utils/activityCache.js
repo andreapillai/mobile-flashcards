@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const STORAGE_KEY = "mobile-flashcards-decks";
+const STORAGE_KEY = "mobile-flashcards-activity";
 
 const store = async (value) => {
   try {
