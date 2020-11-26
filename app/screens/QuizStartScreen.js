@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import AppButton from "../components/AppButton";
 import AppScreen from "../components/AppScreen";
@@ -6,6 +6,7 @@ import defaultStyles from "../utils/defaultStyles";
 import { colors } from "./../utils/defaultStyles";
 
 const QuizStartScreen = (props) => {
+  const [score, setScore] = useState(0);
   const { navigation } = props;
   const { deck } = props.route.params;
 
@@ -19,7 +20,9 @@ const QuizStartScreen = (props) => {
       </Text>
       <AppButton
         title="Start"
-        onPress={() => console.log("Start Quiz")}
+        onPress={() =>
+          navigation.navigate("Quiz Screen", { id: deck.id, questionIndex: 0 })
+        }
         color={colors.green}
       />
       <AppButton title="Return to Deck" onPress={() => navigation.pop()} />
