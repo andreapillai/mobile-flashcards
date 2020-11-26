@@ -65,7 +65,7 @@ export const checkCachedDecks = async () => {
   return cachedDecks;
 };
 
-export const getDeckByName = (title) =>
+export const getDeckByTitle = (title) =>
   createSelector(
     (state) => state,
     (state) => state.filter((d) => d.title === title)

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { FlatList, Text } from "react-native";
 
 import { connect } from "react-redux";
 
@@ -30,7 +30,7 @@ const DeckListScreen = (props) => {
   if (decks.length === 0)
     return (
       <AppScreen>
-        <Text style={styles.title}>No Decks 😢</Text>
+        <Text style={defaultStyles.screenTitle}>No Decks 😢</Text>
         <AppButton
           title="Load Sample Decks"
           onPress={() => dispatch(sampleDecksLoaded())}
@@ -43,7 +43,7 @@ const DeckListScreen = (props) => {
     );
   return (
     <AppScreen>
-      <Text style={styles.title}>Deck List</Text>
+      <Text style={defaultStyles.screenTitle}>Deck List</Text>
       <FlatList
         data={decks}
         renderItem={({ item }) => (
@@ -62,7 +62,3 @@ const mapStateToProps = (store) => ({
 });
 
 export default connect(mapStateToProps)(DeckListScreen);
-
-const styles = StyleSheet.create({
-  title: defaultStyles.screenTitle,
-});

@@ -30,7 +30,9 @@ const AddQuestionScreen = (props) => {
   if (!deck) return null;
   return (
     <AppScreen>
-      <Text style={defaultStyles.screenTitle}>Add Question - {deck.title}</Text>
+      <Text style={defaultStyles.sscreenTitle}>
+        Add Question - {deck.title}
+      </Text>
       <AppInput
         placeholder="Question Text"
         value={questionText}

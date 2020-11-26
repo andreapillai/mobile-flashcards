@@ -16,7 +16,7 @@ const QuizResultScreen = (props) => {
 
   return (
     <AppScreen>
-      <Text style={defaultStyles.screenTitle}>Quiz Result</Text>
+      <Text style={defaultStyles.sscreenTitle}>Quiz Result</Text>
       <Text>SCORE: {score} </Text>
       <AppButton title="Return to Deck List" onPress={goBackToList} />
     </AppScreen>

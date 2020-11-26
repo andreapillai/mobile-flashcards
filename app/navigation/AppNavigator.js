@@ -13,7 +13,7 @@ const AppNavigator = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{ activeTintColor: colors.primary }}
-      initialRouteName="Debug"
+      // initialRouteName="Debug"
     >
       <Tab.Screen
         name="Decks"

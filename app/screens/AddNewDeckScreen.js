@@ -1,23 +1,35 @@
-import React, { useState } from "react";
-import { FlatList, StyleSheet, Text, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Modal, Text } from "react-native";
 import AppButton from "../components/AppButton";
 import AppScreen from "../components/AppScreen";
 import { connect } from "react-redux";
-import { deckAdded } from "../store/decks";
+import { deckAdded, getDeckByTitle } from "../store/decks";
 import defaultStyles from "../utils/defaultStyles";
 import AppInput from "../components/AppInput";
 
 const AddNewDeckScreen = (props) => {
   const [newDeckName, setNewDeckName] = useState("");
-  const { dispatch, decks } = props;
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const { dispatch, decks, navigation } = props;
 
   const handleSubmit = () => {
-    dispatch(deckAdded({ title: newDeckName })); // TODO check that deck doesn't already exist. if it does, redirect to it
+    // TODO check that deck doesn't already exist. if it does, redirect to it
+    dispatch(deckAdded({ title: newDeckName }));
+    setConfirmModalVisible(true);
   };
+
+  const addAnotherDeck = () => {
+    setNewDeckName("");
+    setConfirmModalVisible(false);
+  };
+
+  useEffect(() => {
+    setNewDeckName("");
+  }, []);
 
   return (
     <AppScreen>
-      <Text style={styles.title}>Add New Deck</Text>
+      <Text style={defaultStyles.screenTitle}>Add New Deck</Text>
       <AppInput
         placeholder="New Deck Name"
         value={newDeckName}
@@ -28,6 +40,19 @@ const AddNewDeckScreen = (props) => {
         data={decks}
         renderItem={({ item }) => <Text>{item.title}</Text>}
       />
+      <Modal visible={confirmModalVisible}>
+        <Text style={defaultStyles.screenTitle}>Deck Added!</Text>
+        <AppButton title="Add Another Deck" onPress={addAnotherDeck} />
+        <AppButton
+          title="View Newly Added Deck"
+          onPress={() =>
+            navigation.navigate("Decks", {
+              screen: "Deck Details",
+              params: { title: newDeckName },
+            })
+          }
+        />
+      </Modal>
     </AppScreen>
   );
 };
@@ -37,7 +62,3 @@ const mapStateToProps = (store) => ({
 });
 
 export default connect(mapStateToProps)(AddNewDeckScreen);
-
-const styles = StyleSheet.create({
-  title: defaultStyles.screenTitle,
-});

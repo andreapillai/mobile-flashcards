@@ -17,11 +17,29 @@ const DeckDetailsScreen = (props) => {
     navigation.pop();
   };
 
-  if (!deck) return null;
+  if (!deck)
+    return (
+      <View>
+        <Text style={defaultStyles.screenTitle}>No Deck Found! 😖</Text>
+        <Text></Text>
+        <AppButton
+          title="Deck List"
+          onPress={() => navigation.navigate("Deck List")}
+        />
+        <AppButton
+          title="log props"
+          onPress={() => {
+            console.clear();
+            console.log(props);
+          }}
+          color="red"
+        />
+      </View>
+    );
 
   return (
     <AppScreen>
-      <Text style={styles.title}>{deck.title}</Text>
+      <Text style={defaultStyles.screenTitle}>{deck.title}</Text>
       {!hasQuestions && (
         <View>
           <Text>There are no questions in this deck.</Text>
@@ -59,7 +77,7 @@ const DeckDetailsScreen = (props) => {
       />
       <Modal visible={deleteModalVisible}>
         <View style={{ justifyContent: "center", flex: 1 }}>
-          <Text style={styles.title}>Delete Deck</Text>
+          <Text style={defaultStyles.screenTitle}>Delete Deck</Text>
           <Text
             style={{
               alignSelf: "center",
@@ -90,15 +108,18 @@ const DeckDetailsScreen = (props) => {
 const mapStateToProps = (store, ownProps) => {
   const { id, title } = ownProps.route.params;
   if (id) {
+    console.log(id);
     return { deck: store.decks.filter((d) => d.id === id)[0] };
   }
   if (title) {
+    console.log(title);
     return { deck: store.decks.filter((d) => d.title === title)[0] };
   }
+  return { deck: null };
 };
 
 export default connect(mapStateToProps)(DeckDetailsScreen);
 
 const styles = StyleSheet.create({
-  title: defaultStyles.screenTitle,
+  title: defaultStyles.sscreenTitle,
 });

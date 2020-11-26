@@ -7,7 +7,7 @@ import { colors } from "./../utils/defaultStyles";
 const AppInput = ({ ...otherProps }) => {
   return (
     <View style={styles.container}>
-      <TextInput {...otherProps} />
+      <TextInput {...otherProps} style={styles.text} />
     </View>
   );
 };
@@ -23,5 +23,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     marginVertical: 5,
+  },
+  text: {
+    width: "100%",
   },
 });

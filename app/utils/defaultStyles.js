@@ -11,6 +11,7 @@ export default {
     fontSize: 25,
     alignSelf: "center",
     color: colors.primary,
+    marginBottom: 15,
   },
   buttonRow: {
     paddingVertical: 10,
