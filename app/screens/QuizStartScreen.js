@@ -6,7 +6,6 @@ import defaultStyles from "../utils/defaultStyles";
 import { colors } from "./../utils/defaultStyles";
 
 const QuizStartScreen = (props) => {
-  const [score, setScore] = useState(0);
   const { navigation } = props;
   const { deck } = props.route.params;
 
@@ -21,7 +20,10 @@ const QuizStartScreen = (props) => {
       <AppButton
         title="Start"
         onPress={() =>
-          navigation.navigate("Quiz Screen", { id: deck.id, questionIndex: 0 })
+          navigation.navigate("Quiz Screen", {
+            id: deck.id,
+            questionIndex: 0,
+          })
         }
         color={colors.green}
       />

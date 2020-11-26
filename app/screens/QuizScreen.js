@@ -7,11 +7,29 @@ import AppButton from "../components/AppButton";
 import { colors } from "./../utils/defaultStyles";
 
 const QuizScreen = (props) => {
-  const { deck } = props;
+  const { deck, navigation } = props;
   const { questions } = deck;
   const { questionIndex } = props.route.params;
   const questionNumber = questionIndex + 1;
+  const isLastQuestion = questionNumber === questions.length;
   const currentQuestion = questions[questionIndex];
+
+  if (isLastQuestion) {
+    console.log("last");
+  }
+
+  const goToNextQuestion = () => {
+    if (isLastQuestion) return endQuiz();
+    navigation.navigate("Quiz Screen", {
+      id: deck.id,
+      questionIndex: questionIndex + 1,
+    });
+  };
+
+  const endQuiz = () => {
+    navigation.navigate("Quiz Result");
+  };
+
   return (
     <AppScreen>
       <Text style={defaultStyles.screenTitle}>{deck.title}</Text>
@@ -23,16 +41,17 @@ const QuizScreen = (props) => {
       <View style={defaultStyles.buttonRow}>
         <AppButton
           title="Incorrect"
-          onPress={() => console.log("Incorrect")}
+          onPress={goToNextQuestion}
           color={colors.danger}
         />
         <AppButton
           title="Correct"
-          onPress={() => console.log("Correct")}
+          onPress={goToNextQuestion}
           color={colors.green}
         />
       </View>
-      <AppButton title="Exit Quiz" onPress={() => console.log("Exit Quiz")} />
+      <AppButton title="Next" onPress={goToNextQuestion} color="gold" />
+      <AppButton title="Exit Quiz" onPress={() => navigation.pop()} />
     </AppScreen>
   );
 };
