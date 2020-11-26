@@ -6,7 +6,7 @@ import AppButton from "../components/AppButton";
 
 import defaultStyles, { colors } from "../utils/defaultStyles";
 
-import activityCache from "./activityCache";
+import activityCache from "../utils/activityCache";
 
 export default function NotificationsScreen() {
   const [cachedData, setCachedData] = useState();
@@ -47,7 +47,7 @@ export default function NotificationsScreen() {
     <AppScreen>
       <AppButton title="Tap Me!" onPress={showNotification} />
       <View style={styles.section}>
-        <Text style={defaultStyles.screentitle}>Cache</Text>
+        <Text style={defaultStyles.screenTitle}>Cache</Text>
         <View style={defaultStyles.buttonRow}>
           <AppButton title="Read" onPress={readCache} color={colors.green} />
           <AppButton title="Set" onPress={setCache} />

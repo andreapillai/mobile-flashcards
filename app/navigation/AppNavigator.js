@@ -2,20 +2,17 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AddNewDeckScreen from "../screens/AddNewDeckScreen";
-import DebugScreen from "../debug/DebugScreen";
-import DeckNavigator from "./DeckNavigator";
 import { colors } from "./../utils/defaultStyles";
-import NotificationsScreen from "./../utils/NotificationsScreen";
+
+import AddNewDeckScreen from "../screens/AddNewDeckScreen";
+import DeckNavigator from "./DeckNavigator";
+import DebugNavigator from "./DebugNavigator";
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
   return (
-    <Tab.Navigator
-      tabBarOptions={{ activeTintColor: colors.primary }}
-      // initialRouteName="Debug"
-    >
+    <Tab.Navigator tabBarOptions={{ activeTintColor: colors.primary }}>
       <Tab.Screen
         name="Decks"
         component={DeckNavigator}
@@ -44,7 +41,7 @@ const AppNavigator = () => {
       />
       <Tab.Screen
         name="Debug"
-        component={DebugScreen}
+        component={DebugNavigator}
         options={{
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons
@@ -55,7 +52,6 @@ const AppNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} />
     </Tab.Navigator>
   );
 };
