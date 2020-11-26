@@ -35,7 +35,11 @@ const AddNewDeckScreen = (props) => {
         value={newDeckName}
         onChangeText={setNewDeckName}
       />
-      <AppButton title="Add Deck" onPress={handleSubmit} />
+      <AppButton
+        title="Add Deck"
+        onPress={handleSubmit}
+        disabled={newDeckName.length < 4}
+      />
       <FlatList
         data={decks}
         renderItem={({ item }) => <Text>{item.title}</Text>}

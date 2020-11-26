@@ -34,7 +34,7 @@ const QuizScreen = (props) => {
 
   return (
     <AppScreen>
-      <Text style={defaultStyles.sscreenTitle}>{deck.title}</Text>
+      <Text style={defaultStyles.screenTitle}>{deck.title}</Text>
       <Text>
         Question {questionNumber} of {questions.length}
       </Text>

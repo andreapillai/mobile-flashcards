@@ -12,7 +12,7 @@ const QuizStartScreen = (props) => {
   if (!deck) return null;
   return (
     <AppScreen>
-      <Text style={defaultStyles.sscreenTitle}>Quiz Start - {deck.title}</Text>
+      <Text style={defaultStyles.screenTitle}>Quiz Start - {deck.title}</Text>
       <Text>
         This deck contains {deck.questions.length} cards. If you exit the quiz
         at any point, you will have to start again.

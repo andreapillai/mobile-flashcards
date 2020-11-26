@@ -33,13 +33,9 @@ const decksSlice = createSlice({
       return filtered;
     },
     questionAdded: (decks, action) => {
-      const { id, question } = action.payload; // destructure payload
-      // console.group("ADD QUESTION");
-      // console.log(id);
-      // console.log(question);
-      // console.groupEnd();
-      const deckToUpdate = decks.find((d) => d.id === id); // find deck to update
-      deckToUpdate.questions.push(question); // push question to deck
+      const { id, question } = action.payload;
+      const deckToUpdate = decks.find((d) => d.id === id);
+      deckToUpdate.questions.push(question);
       decks.map((d) => (d.id !== id ? d : deckToUpdate));
       storeCache(decks);
     },

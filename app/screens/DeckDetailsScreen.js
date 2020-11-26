@@ -26,14 +26,6 @@ const DeckDetailsScreen = (props) => {
           title="Deck List"
           onPress={() => navigation.navigate("Deck List")}
         />
-        <AppButton
-          title="log props"
-          onPress={() => {
-            console.clear();
-            console.log(props);
-          }}
-          color="red"
-        />
       </View>
     );
 
@@ -108,11 +100,9 @@ const DeckDetailsScreen = (props) => {
 const mapStateToProps = (store, ownProps) => {
   const { id, title } = ownProps.route.params;
   if (id) {
-    console.log(id);
     return { deck: store.decks.filter((d) => d.id === id)[0] };
   }
   if (title) {
-    console.log(title);
     return { deck: store.decks.filter((d) => d.title === title)[0] };
   }
   return { deck: null };

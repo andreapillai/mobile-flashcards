@@ -55,7 +55,7 @@ const AddQuestionScreen = (props) => {
           <Text>{deck.questions[index].questionText}</Text>
         )}
       />
-      <AppButton title="Go Back to Deck" onPress={() => navigation.pop()} />
+      <AppButton title="View Deck" onPress={() => navigation.pop()} />
     </AppScreen>
   );
 };
