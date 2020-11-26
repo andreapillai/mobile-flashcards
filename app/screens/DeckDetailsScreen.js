@@ -87,13 +87,13 @@ const DeckDetailsScreen = (props) => {
   );
 };
 
-const mapStateToProps = (decks, ownProps) => {
+const mapStateToProps = (store, ownProps) => {
   const { id, title } = ownProps.route.params;
   if (id) {
-    return { deck: decks.filter((d) => d.id === id)[0] };
+    return { deck: store.decks.filter((d) => d.id === id)[0] };
   }
   if (title) {
-    return { deck: decks.filter((d) => d.title === title)[0] };
+    return { deck: store.decks.filter((d) => d.title === title)[0] };
   }
 };
 

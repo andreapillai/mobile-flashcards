@@ -3,20 +3,30 @@ import { StyleSheet, Text, View } from "react-native";
 import AppScreen from "../components/AppScreen";
 import defaultStyles from "../utils/defaultStyles";
 import AppButton from "./../components/AppButton";
+import { connect } from "react-redux";
+import { scoreReset } from "../store/score";
 
 const QuizResultScreen = (props) => {
-  const { navigation } = props;
+  const { navigation, score, dispatch } = props;
+
+  const goBackToList = () => {
+    dispatch(scoreReset());
+    navigation.navigate("Deck List");
+  };
+
   return (
     <AppScreen>
       <Text style={defaultStyles.screenTitle}>Quiz Result</Text>
-      <AppButton
-        title="Return to Deck List"
-        onPress={() => navigation.navigate("Deck List")}
-      />
+      <Text>SCORE: {score} </Text>
+      <AppButton title="Return to Deck List" onPress={goBackToList} />
     </AppScreen>
   );
 };
 
-export default QuizResultScreen;
+const mapStateToProps = (store) => ({
+  score: store.score,
+});
+
+export default connect(mapStateToProps)(QuizResultScreen);
 
 const styles = StyleSheet.create({});

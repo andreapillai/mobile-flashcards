@@ -6,10 +6,11 @@ import { connect } from "react-redux";
 import AppButton from "../components/AppButton";
 import { decksCleared, sampleDecksLoaded } from "../store/decks";
 import cache from "../utils/cache";
+import { scoreIncreased, scoreReset } from "../store/score";
 
 const DebugScreen = (props) => {
   const [cachedData, setCachedData] = useState();
-  const { decks, dispatch } = props;
+  const { decks, dispatch, score } = props;
 
   const readCache = async () => {
     const result = await cache.get();
@@ -25,7 +26,7 @@ const DebugScreen = (props) => {
   };
   return (
     <AppScreen style={{ position: "relative" }}>
-      <Text style={[styles.title, { marginBottom: 10 }]}>Debug Screen</Text>
+      <Text style={[styles.title, { marginBottom: 20 }]}>Debug Screen</Text>
       <View style={styles.section}>
         <Text style={styles.title}>Redux</Text>
         <Text>Decks in store: {decks.length}</Text>
@@ -55,6 +56,17 @@ const DebugScreen = (props) => {
           <AppButton title="Clear" onPress={clearCache} color={colors.danger} />
         </View>
       </View>
+      <View style={styles.section}>
+        <Text style={styles.title}>Score</Text>
+        <Text>Current Score: {score}</Text>
+        <View style={styles.buttonRow}>
+          <AppButton
+            title="Increase"
+            onPress={() => dispatch(scoreIncreased())}
+          />
+          <AppButton title="Reset" onPress={() => dispatch(scoreReset())} />
+        </View>
+      </View>
       <View
         style={[
           styles.section,
@@ -71,8 +83,9 @@ const DebugScreen = (props) => {
   );
 };
 
-const mapStateToProps = (decks) => ({
-  decks,
+const mapStateToProps = (store) => ({
+  decks: store.decks,
+  score: store.score,
 });
 
 export default connect(mapStateToProps)(DebugScreen);

@@ -11,7 +11,10 @@ const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
   return (
-    <Tab.Navigator tabBarOptions={{ activeTintColor: colors.primary }}>
+    <Tab.Navigator
+      tabBarOptions={{ activeTintColor: colors.primary }}
+      initialRouteName="Debug"
+    >
       <Tab.Screen
         name="Decks"
         component={DeckNavigator}

@@ -5,18 +5,15 @@ import defaultStyles from "../utils/defaultStyles";
 import { connect } from "react-redux";
 import AppButton from "../components/AppButton";
 import { colors } from "./../utils/defaultStyles";
+import { scoreIncreased } from "../store/score";
 
 const QuizScreen = (props) => {
-  const { deck, navigation } = props;
+  const { deck, navigation, score, dispatch } = props;
   const { questions } = deck;
   const { questionIndex } = props.route.params;
   const questionNumber = questionIndex + 1;
   const isLastQuestion = questionNumber === questions.length;
   const currentQuestion = questions[questionIndex];
-
-  if (isLastQuestion) {
-    console.log("last");
-  }
 
   const goToNextQuestion = () => {
     if (isLastQuestion) return endQuiz();
@@ -24,6 +21,11 @@ const QuizScreen = (props) => {
       id: deck.id,
       questionIndex: questionIndex + 1,
     });
+  };
+
+  const increaseScore = () => {
+    dispatch(scoreIncreased());
+    goToNextQuestion();
   };
 
   const endQuiz = () => {
@@ -36,6 +38,9 @@ const QuizScreen = (props) => {
       <Text>
         Question {questionNumber} of {questions.length}
       </Text>
+      <Text>
+        Current Score: {score} / {questions.length}
+      </Text>
       <Text>{currentQuestion.questionText}</Text>
       <Text>{currentQuestion.answerText}</Text>
       <View style={defaultStyles.buttonRow}>
@@ -46,7 +51,7 @@ const QuizScreen = (props) => {
         />
         <AppButton
           title="Correct"
-          onPress={goToNextQuestion}
+          onPress={increaseScore}
           color={colors.green}
         />
       </View>
@@ -56,9 +61,12 @@ const QuizScreen = (props) => {
   );
 };
 
-const mapStateToProps = (decks, ownProps) => {
+const mapStateToProps = (store, ownProps) => {
   const { id } = ownProps.route.params;
-  return { deck: decks.filter((d) => d.id === id)[0] };
+  return {
+    deck: store.decks.filter((d) => d.id === id)[0],
+    score: store.score,
+  };
 };
 
 export default connect(mapStateToProps)(QuizScreen);

@@ -58,9 +58,9 @@ const AddQuestionScreen = (props) => {
   );
 };
 
-const mapStateToProps = (decks, ownProps) => {
+const mapStateToProps = (store, ownProps) => {
   const { id } = ownProps.route.params;
-  return { deck: decks.filter((d) => d.id === id)[0] };
+  return { deck: store.decks.filter((d) => d.id === id)[0] };
 };
 
 export default connect(mapStateToProps)(AddQuestionScreen);

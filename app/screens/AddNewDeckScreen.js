@@ -32,8 +32,8 @@ const AddNewDeckScreen = (props) => {
   );
 };
 
-const mapStateToProps = (decks) => ({
-  decks,
+const mapStateToProps = (store) => ({
+  decks: store.decks,
 });
 
 export default connect(mapStateToProps)(AddNewDeckScreen);
