@@ -6,6 +6,7 @@ import AddNewDeckScreen from "../screens/AddNewDeckScreen";
 import DebugScreen from "../debug/DebugScreen";
 import DeckNavigator from "./DeckNavigator";
 import { colors } from "./../utils/defaultStyles";
+import NotificationsScreen from "./../utils/NotificationsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -54,6 +55,7 @@ const AppNavigator = () => {
           ),
         }}
       />
+      <Tab.Screen name="Notifications" component={NotificationsScreen} />
     </Tab.Navigator>
   );
 };

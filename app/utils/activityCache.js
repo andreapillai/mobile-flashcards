@@ -2,9 +2,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const STORAGE_KEY = "mobile-flashcards-activity";
 
-const store = async (value) => {
+const store = async () => {
   try {
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+    await AsyncStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ lastActivity: Date.now() })
+    );
   } catch (error) {
     console.log(error);
   }

@@ -35,7 +35,7 @@ export default function NotificationsScreen() {
     setCachedData(result);
   };
   const setCache = () => {
-    activityCache.store({ lastActivity: Date.now() });
+    activityCache.store();
     readCache();
   };
   const clearCache = () => {
@@ -47,8 +47,8 @@ export default function NotificationsScreen() {
     <AppScreen>
       <AppButton title="Tap Me!" onPress={showNotification} />
       <View style={styles.section}>
-        <Text style={styles.title}>Cache</Text>
-        <View style={styles.buttonRow}>
+        <Text style={defaultStyles.screentitle}>Cache</Text>
+        <View style={defaultStyles.buttonRow}>
           <AppButton title="Read" onPress={readCache} color={colors.green} />
           <AppButton title="Set" onPress={setCache} />
           <AppButton title="Clear" onPress={clearCache} color={colors.danger} />
@@ -63,7 +63,7 @@ export default function NotificationsScreen() {
 }
 
 const styles = StyleSheet.create({
-  title: defaultStyles.sscreenTitle,
+  title: defaultStyles.screenTitle,
   section: {
     borderColor: colors.primary,
     borderTopWidth: 2,
