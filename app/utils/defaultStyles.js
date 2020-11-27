@@ -1,8 +1,8 @@
 export const colors = {
   primary: "darkcyan",
-  danger: "firebrick",
+  danger: "indianred",
   light: "ghostwhite",
-  green: "seagreen",
+  green: "darkseagreen",
 };
 
 export default {
@@ -18,5 +18,6 @@ export default {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-evenly",
+    minWidth: "100%",
   },
 };

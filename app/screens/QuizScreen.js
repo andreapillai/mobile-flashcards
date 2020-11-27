@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import AppScreen from "../components/AppScreen";
 import defaultStyles from "../utils/defaultStyles";
 import { connect } from "react-redux";
@@ -18,6 +18,7 @@ const QuizScreen = (props) => {
   const currentQuestion = questions[questionIndex];
 
   const goToNextQuestion = () => {
+    flipCard();
     if (isLastQuestion) return endQuiz();
     navigation.navigate("Quiz Screen", {
       id: deck.id,
@@ -28,6 +29,10 @@ const QuizScreen = (props) => {
   const increaseScore = () => {
     dispatch(scoreIncreased());
     goToNextQuestion();
+  };
+
+  const flipCard = () => {
+    setIsCardFlipped(!isCardFlipped);
   };
 
   const endQuiz = () => {
@@ -44,37 +49,40 @@ const QuizScreen = (props) => {
         Current Score: {score} / {questions.length}
       </Text>
       <View style={styles.cardContainer}>
-        <FlipCard
-          style={styles.card}
-          friction={6}
-          perspective={1000}
-          flipHorizontal={true}
-          flipVertical={false}
-          flip={false} // TODO find a way to reset card to front face when moving to next question
-          clickable={true}
-        >
-          <View style={styles.cardContents}>
-            <Text style={styles.cardTitle}>Question</Text>
-            <Text style={styles.cardText}>{currentQuestion.questionText}</Text>
-          </View>
-          <View style={styles.cardContents}>
-            <Text style={styles.cardTitle}>Answer</Text>
-            <Text style={styles.cardText}>{currentQuestion.answerText}</Text>
-          </View>
-        </FlipCard>
+        <TouchableWithoutFeedback onPress={flipCard}>
+          <FlipCard
+            style={styles.card}
+            friction={50}
+            flipVertical={true}
+            flip={isCardFlipped}
+            clickable={false}
+          >
+            <View style={styles.cardContents}>
+              <Text style={styles.cardTitle}>Question</Text>
+              <Text style={styles.cardText}>
+                {currentQuestion.questionText}
+              </Text>
+            </View>
+            <View style={styles.cardContents}>
+              <Text style={styles.cardTitle}>Answer</Text>
+              <Text style={styles.cardText}>{currentQuestion.answerText}</Text>
+              <View style={defaultStyles.buttonRow}>
+                <AppButton
+                  title="Incorrect"
+                  onPress={goToNextQuestion}
+                  color={colors.danger}
+                />
+                <AppButton
+                  title="Correct"
+                  onPress={increaseScore}
+                  color={colors.green}
+                />
+              </View>
+            </View>
+          </FlipCard>
+        </TouchableWithoutFeedback>
       </View>
-      <View style={defaultStyles.buttonRow}>
-        <AppButton
-          title="Incorrect"
-          onPress={goToNextQuestion}
-          color={colors.danger}
-        />
-        <AppButton
-          title="Correct"
-          onPress={increaseScore}
-          color={colors.green}
-        />
-      </View>
+
       <AppButton title="Exit Quiz" onPress={() => navigation.pop()} />
     </AppScreen>
   );
