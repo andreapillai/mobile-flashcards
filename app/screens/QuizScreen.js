@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AppScreen from "../components/AppScreen";
 import defaultStyles from "../utils/defaultStyles";
@@ -6,8 +6,10 @@ import { connect } from "react-redux";
 import AppButton from "../components/AppButton";
 import { colors } from "./../utils/defaultStyles";
 import { scoreIncreased } from "../store/score";
+import FlipCard from "react-native-flip-card";
 
 const QuizScreen = (props) => {
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
   const { deck, navigation, score, dispatch } = props;
   const { questions } = deck;
   const { questionIndex } = props.route.params;
@@ -41,8 +43,26 @@ const QuizScreen = (props) => {
       <Text>
         Current Score: {score} / {questions.length}
       </Text>
-      <Text>{currentQuestion.questionText}</Text>
-      <Text>{currentQuestion.answerText}</Text>
+      <View style={styles.cardContainer}>
+        <FlipCard
+          style={styles.card}
+          friction={6}
+          perspective={1000}
+          flipHorizontal={true}
+          flipVertical={false}
+          flip={false} // TODO find a way to reset card to front face when moving to next question
+          clickable={true}
+        >
+          <View style={styles.cardContents}>
+            <Text style={styles.cardTitle}>Question</Text>
+            <Text style={styles.cardText}>{currentQuestion.questionText}</Text>
+          </View>
+          <View style={styles.cardContents}>
+            <Text style={styles.cardTitle}>Answer</Text>
+            <Text style={styles.cardText}>{currentQuestion.answerText}</Text>
+          </View>
+        </FlipCard>
+      </View>
       <View style={defaultStyles.buttonRow}>
         <AppButton
           title="Incorrect"
@@ -55,7 +75,6 @@ const QuizScreen = (props) => {
           color={colors.green}
         />
       </View>
-      <AppButton title="Next" onPress={goToNextQuestion} color="gold" />
       <AppButton title="Exit Quiz" onPress={() => navigation.pop()} />
     </AppScreen>
   );
@@ -71,4 +90,34 @@ const mapStateToProps = (store, ownProps) => {
 
 export default connect(mapStateToProps)(QuizScreen);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  cardContainer: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 50,
+  },
+  card: {
+    backgroundColor: colors.primary,
+    width: "80%",
+    height: 200,
+    borderRadius: 20,
+    justifyContent: "space-evenly",
+    overflow: "hidden",
+    alignItems: "center",
+    padding: 5,
+  },
+  cardTitle: {
+    fontSize: 20,
+    color: colors.light,
+  },
+  cardText: {
+    fontSize: 15,
+    color: colors.light,
+  },
+  cardContents: {
+    height: "100%",
+    minWidth: "100%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+});
