@@ -42,7 +42,6 @@ export const clearNotifications = async () => {
 };
 
 export const setLocalNotification = async () => {
-  console.log("setting local notification");
   const storedData = await getStoredData();
 
   if (storedData) return console.log(storedData);
@@ -54,8 +53,6 @@ export const setLocalNotification = async () => {
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow.setHours(20);
     tomorrow.setMinutes(0);
-
-    console.log("OS: ", Platform.OS);
 
     Notifications.scheduleNotificationAsync({
       content: {

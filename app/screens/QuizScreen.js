@@ -5,7 +5,7 @@ import defaultStyles from "../utils/defaultStyles";
 import { connect } from "react-redux";
 import AppButton from "../components/AppButton";
 import { colors } from "./../utils/defaultStyles";
-import { scoreIncreased } from "../store/score";
+import { scoreIncreased, scoreReset } from "../store/score";
 import FlipCard from "react-native-flip-card";
 
 const QuizScreen = (props) => {
@@ -40,6 +40,11 @@ const QuizScreen = (props) => {
       totalQuestions: questions.length,
       deck,
     });
+  };
+
+  const exitQuiz = () => {
+    dispatch(scoreReset());
+    navigation.replace("Deck Details", { id: deck.id });
   };
 
   if (!deck) return null;
@@ -88,7 +93,7 @@ const QuizScreen = (props) => {
         </TouchableWithoutFeedback>
       </View>
 
-      <AppButton title="Exit Quiz" onPress={() => navigation.pop()} />
+      <AppButton title="Exit Quiz" onPress={exitQuiz} />
     </AppScreen>
   );
 };
