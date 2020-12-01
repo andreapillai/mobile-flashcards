@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import AppButton from "../components/AppButton";
 import AppScreen from "../components/AppScreen";
 import defaultStyles from "../utils/defaultStyles";
 import { colors } from "./../utils/defaultStyles";
+import * as Notifications from "../utils/notifications";
 
 const QuizStartScreen = (props) => {
   const { navigation } = props;
   const { deck } = props.route.params;
+
+  useEffect(() => {
+    resetNotification();
+  }, []);
+
+  const resetNotification = async () => {
+    try {
+      const clear = await Notifications.clearNotifications();
+      console.log("Cleared: ", clear);
+    } catch (error) {
+      console.log(error);
+    }
+    Notifications.setLocalNotification();
+  };
 
   if (!deck) return null;
   return (

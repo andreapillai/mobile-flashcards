@@ -1,62 +1,42 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import * as Notifications from "expo-notifications";
+import * as Notifications from "../utils/notifications";
+import * as ExpoNotifications from "expo-notifications";
+
 import AppScreen from "../components/AppScreen";
 import AppButton from "../components/AppButton";
-
 import defaultStyles, { colors } from "../utils/defaultStyles";
 
-import activityCache from "../utils/activityCache";
+const content = {
+  title: "Mobile-Flashcards",
+  body: "Don't forget to study!!!",
+};
 
 export default function NotificationsScreen() {
-  const [cachedData, setCachedData] = useState();
-
-  Notifications.setNotificationHandler({
-    handleNotification: async () => {
-      return {
-        shouldShowAlert: true,
-        shouldPlaySound: true,
-        shouldSetBadge: true,
-      };
-    },
-  });
-
-  const content = {
-    title: "Mobile-Flashcards",
-    body: "Don't forget to study!!!",
-  };
-
-  const showNotification = () => {
-    Notifications.scheduleNotificationAsync({ content, trigger: null });
-  };
-
-  const readCache = async () => {
-    const result = await activityCache.get();
-    setCachedData(result);
-  };
-  const setCache = () => {
-    activityCache.store();
-    readCache();
-  };
-  const clearCache = () => {
-    activityCache.clear();
-    readCache();
+  const getStoredNotifications = async () => {
+    const result = await Notifications.getNotifications();
+    console.log(result);
   };
 
   return (
     <AppScreen>
-      <AppButton title="Tap Me!" onPress={showNotification} />
       <View style={styles.section}>
-        <Text style={defaultStyles.screenTitle}>Cache</Text>
-        <View style={defaultStyles.buttonRow}>
-          <AppButton title="Read" onPress={readCache} color={colors.green} />
-          <AppButton title="Set" onPress={setCache} />
-          <AppButton title="Clear" onPress={clearCache} color={colors.danger} />
+        <Text style={defaultStyles.screenTitle}>Scheduling</Text>
+
+        <View style={styles.buttonRow}>
+          <AppButton
+            title="Set Notification"
+            onPress={() => Notifications.setLocalNotification()}
+          />
+          <AppButton
+            title="Get Notifications"
+            onPress={getStoredNotifications}
+          />
+          <AppButton
+            title="Clear Notifications"
+            onPress={() => Notifications.clearNotifications()}
+          />
         </View>
-        <AppButton title="log cache" onPress={() => console.log(cachedData)} />
-        <Text>
-          Last Activity: {(cachedData && cachedData.lastActivity) || "none"}
-        </Text>
       </View>
     </AppScreen>
   );

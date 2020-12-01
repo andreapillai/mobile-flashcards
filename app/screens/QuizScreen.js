@@ -39,6 +39,8 @@ const QuizScreen = (props) => {
     navigation.navigate("Quiz Result");
   };
 
+  if (!deck) return null;
+
   return (
     <AppScreen>
       <Text style={defaultStyles.screenTitle}>{deck.title}</Text>
