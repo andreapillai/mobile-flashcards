@@ -3,7 +3,7 @@ import { FlatList, Modal, Text } from "react-native";
 import AppButton from "../components/AppButton";
 import AppScreen from "../components/AppScreen";
 import { connect } from "react-redux";
-import { deckAdded, getDeckByTitle } from "../store/decks";
+import { deckAdded } from "../store/decks";
 import defaultStyles from "../utils/defaultStyles";
 import AppInput from "../components/AppInput";
 
@@ -13,7 +13,6 @@ const AddNewDeckScreen = (props) => {
   const { dispatch, decks, navigation } = props;
 
   const handleSubmit = () => {
-    // TODO check that deck doesn't already exist. if it does, redirect to it
     dispatch(deckAdded({ title: newDeckName }));
     setConfirmModalVisible(true);
   };

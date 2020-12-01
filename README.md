@@ -1,4 +1,4 @@
-# My Universal React Project
+# Mobile-Flaschards
 
 <p>
   <!-- iOS -->
@@ -17,28 +17,30 @@
 
 ## 🚀 How to use
 
+- Clone this repository using git clone, or download the .zip file and extract.
 - Install packages with `yarn` or `npm install`.
-  - If you have native iOS code run `npx pod-install`
 - Run `yarn start` to start the bundler.
 - Open the project in a React runtime to try it:
   - iOS: [Client iOS](https://itunes.apple.com/app/apple-store/id982107779)
   - Android: [Client Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample)
   - Web: Any web browser
+## 📝 Using the App
 
-## Adding Native Code
+- Once started, the app will load any decks you have created. If no decks are present, you can load sample decks to test functionality.
+- The main menu at the bottom allows you to view the deck list, or add a new deck.
+- Tapping on a deck in the list will show you the details for that deck, and will allow you to delete the deck, or add questions.
+- If there are already questions in the deck, you will be able to start the quiz.
+- Starting a quiz allows you to cycle through the flashcards.
+- Tapping on each card will reveal the answer to the question, where you will be able to choose whether you answered correctly or incorrectly.
+- After the last question, you will see your total score.
 
-This project can be run from a web browser or the Expo client app. You may find that you want to add more native code later on. You can do this by ejecting the project and rebuilding it yourself.
 
-- Run `yarn eject` to create the native projects.
-- You can still run your project in the web browser or Expo client, you just won't be able to access any new native modules you add.
+## 🔔 Notifications
 
-## Publishing
+- The app will set a daily reminder that will be triggered if you have not started any quizzes that day. The notification will trigger between 8 and 9 PM.
+- Starting a quiz resets the notification for the following day.
 
-- Deploy the native app to the App store and Play store using this guide: [Deployment](https://docs.expo.io/distribution/app-stores/).
-- Deploy the website using this guide: [Web deployment](https://docs.expo.io/distribution/publishing-websites/).
+## TESTING
 
-## 📝 Notes
-
-- Learn more about [Universal React](https://docs.expo.io/).
-- See what API and components are [available in the React runtimes](https://docs.expo.io/versions/latest/).
-- Find out more about developing apps and websites: [Guides](https://docs.expo.io/guides/).
+- App has been tested on Samsung Galaxy J5 and Samsung Galaxy Tab A physical devices
+- App has been tested in Google Pixel 3 emulator (Genymotion)

@@ -39,7 +39,7 @@ const AppNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Debug"
         component={DebugNavigator}
         options={{
@@ -51,7 +51,7 @@ const AppNavigator = () => {
             />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

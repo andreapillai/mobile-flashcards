@@ -44,20 +44,21 @@ const DeckDetailsScreen = (props) => {
             navigation.navigate("Quiz", {
               screen: "Quiz Start",
               params: {
-                deck, // TODO pass deck in random order?
+                deck,
               },
             })
           }
           color={colors.green}
         />
       )}
-      <FlatList // TODO implement deleting question (swipe? press?)
+      <Text>This deck contains {deck.questions.length} questions</Text>
+      {/* <FlatList
         data={Object.keys(deck.questions)}
         keyExtractor={(item) => item}
         renderItem={({ index }) => (
           <Text>{deck.questions[index].questionText}</Text>
         )}
-      />
+      /> */}
       <AppButton
         title="Add Question"
         onPress={() => navigation.navigate("Add Question", { id: deck.id })}

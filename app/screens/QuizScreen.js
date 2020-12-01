@@ -36,7 +36,10 @@ const QuizScreen = (props) => {
   };
 
   const endQuiz = () => {
-    navigation.navigate("Quiz Result");
+    navigation.navigate("Quiz Result", {
+      totalQuestions: questions.length,
+      deck,
+    });
   };
 
   if (!deck) return null;

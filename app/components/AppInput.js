@@ -2,8 +2,6 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { colors } from "./../utils/defaultStyles";
 
-// TODO add icon to clear text
-
 const AppInput = ({ ...otherProps }) => {
   return (
     <View style={styles.container}>

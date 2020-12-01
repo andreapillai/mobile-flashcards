@@ -17,7 +17,6 @@ const QuizStartScreen = (props) => {
   const resetNotification = async () => {
     try {
       const clear = await Notifications.clearNotifications();
-      console.log("Cleared: ", clear);
     } catch (error) {
       console.log(error);
     }
